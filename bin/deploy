@@ -1,9 +1,7 @@
 #! /usr/bin/env bash
 
-find public -type f -exec curl -v --ftp-create-dirs -T {} $FTP_CREDENTIALS \;
-#lftp -c " 
-#  debug
-#  open $FTP_CREDENTIALS
-#  mirror --reverse --verbose --ignore-time public .
-#  bye
-#"
+lftp -c "
+  open $FTP_CREDENTIALS
+  mirror --reverse --verbose --ignore-time public .
+  bye
+"
