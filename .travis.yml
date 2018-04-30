@@ -1,14 +1,1 @@
-addons:
-  #  apt:
-  #  packages:
-  #    - lftp
-  ssh_known_hosts: home69818482.1and1-data.host 
-
-install:
-  - sudo apt install lftp sshpass -qq
-
-before_script:
-  - echo 'set dns:order "inet inet6"' > ~/.lftprc
-    #  - sshpass -p$FTP_PASSWORD ssh -vv p34000121-ndh@home69818482.1and1-data.host 22d
-
 script: bin/deploy

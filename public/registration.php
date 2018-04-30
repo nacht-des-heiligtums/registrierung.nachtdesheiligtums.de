@@ -1,4 +1,5 @@
 <?php
+// Registration Backend for https://nachtdesheiligtums.de
 
 error_reporting(0);
 
