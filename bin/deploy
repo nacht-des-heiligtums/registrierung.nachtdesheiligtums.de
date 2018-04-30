@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+lftp -c " 
+  open $FTP_CREDENTIALS
+  mirror --reverse --delete --verbose --ignore-time public .
+  bye
+"
