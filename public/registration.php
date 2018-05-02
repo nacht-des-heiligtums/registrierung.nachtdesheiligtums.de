@@ -139,7 +139,7 @@ header('Content-Type: application/json');
 
     try {
       set_error_handler(function() { /* ignore errors */ });
-      mail($mail_to, $mail_subject, $mail_message, $mail_headers);
+      mail($mail_to, '=?utf-8?B?'.base64_encode($mail_subject).'?=', $mail_message, $mail_headers);
       restore_error_handler();
     } catch (Exception $e) {
       // nothing to do
