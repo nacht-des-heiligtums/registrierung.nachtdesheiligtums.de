@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+curl -k "$FTP_URL/ndh-anmeldung-jpq5laf2m9uodr2h3tl1veghn7c6lm08.csv" |
+curl -X POST https://content.dropboxapi.com/2/files/upload \
+  --header "Authorization: Bearer $DROPBOX_API_TOKEN" \
+  --header 'Content-Type: application/octet-stream' \
+  --header 'Dropbox-API-Arg: {"path":"/Backup/registrierung.nachtdesheiligtums.de/anmeldedaten.csv","mode":{".tag":"overwrite"}}' \
+  --data-binary @-
