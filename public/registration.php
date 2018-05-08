@@ -1,12 +1,12 @@
 <?php
 // Registration Backend for https://nachtdesheiligtums.de
 
-error_reporting(0);
+  error_reporting(0);
 
-header('Access-Control-Allow-Origin: https://nachtdesheiligtums.de');
-header('Content-Type: application/json');
+  header('Access-Control-Allow-Origin: https://nachtdesheiligtums.de');
+  header('Content-Type: application/json');
 
-  $_c_filename = "ndh-anmeldung-jpq5laf2m9uodr2h3tl1veghn7c6lm08.csv"; 
+  $_c_filename = "ndh-anmeldung-jpq5laf2m9uodr2h3tl1veghn7c6lm08.csv";
   $_c_mailfrom = "anmeldung@nachtdesheiligtums.de";
 
   $_registration_type = getPostInput('registration-type');
@@ -93,11 +93,13 @@ header('Content-Type: application/json');
         ? 'Bett im Doppelzimmer (zzgl. 10 Euro/Nacht + bitte Schlafsack mitbringen)'
         : 'Einzelzimmer (zzgl. 20 Euro/Nacht + bitte Schlafsack mitbringen)';
     $_package_nice = $_package == 'package-a'
-      ? 'Wochenende komplett (55 Euro)'
+      ? 'Wochenende komplett (58 Euro)'
       : $_package == 'package-b'
         ? 'Wochende Samstagnachmittag bis Sonntagmittag (35 Euro)'
-        : 'Wochenende ohne Übernachtung (45 Euro)';
-    $_payment_method_nice = $_payment_method == 'cash' ? 'Bar' : 'Überweisung';
+        : $_package == 'package-c'
+          ? 'Wochenende ohne Übernachtung (45 Euro)'
+          : 'Teilnahme an der Helferwoche (45 Euro)';
+    $_payment_method_nice = $_payment_method == 'cash' ? 'Bar (zzgl. 10 Euro)' : 'Überweisung';
 
     $mail_to = $_email;
     $mail_subject = 'Anmeldebestätigung: Nacht des Heiligtums 2018';
