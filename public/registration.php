@@ -98,7 +98,7 @@
         ? 'Wochende Samstagnachmittag bis Sonntagmittag (35 Euro)'
         : $_package == 'package-c'
           ? 'Wochenende ohne Übernachtung (45 Euro)'
-          : 'Teilnahme an der Helferwoche (45 Euro)';
+          : 'Teilnahme an der Helferwoche (103 Euro)';
     $_payment_method_nice = $_payment_method == 'cash' ? 'Bar (zzgl. 10 Euro)' : 'Überweisung';
 
     $mail_to = $_email;
