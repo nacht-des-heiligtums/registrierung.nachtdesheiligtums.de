@@ -29,6 +29,7 @@
   $type_single = $_registration_type == 'single';
   $type_group_leader = $_registration_type == 'group-leader';
   $type_group_participant = $_registration_type == 'group-participant';
+  $package_help_week = $_package == 'help_week';
 
   $valid_registration_type = (boolean)isValidRequired($_registration_type);
   $valid_group_id = $type_single || (boolean)isValidRequired($_group_id);
@@ -100,11 +101,18 @@
           ? 'Wochenende ohne Übernachtung (45 Euro)'
           : 'Teilnahme an der Helferwoche (103 Euro)'));
     $_payment_method_nice = $_payment_method == 'cash' ? 'Bar (zzgl. 10 Euro)' : 'Überweisung';
+    
+    $mail_intro_default = 'wir haben Deine Anmeldung zur Nacht des Heiligtums 2018 (31. August bis 02. September) erhalten und freuen uns darüber.' . "\r\n\r\n";
+    $mail_intro_help_week = 'wir haben Deine Anmeldung zur Helferwoche der Nacht des Heiligtums 2018 erhalten.' . "\r\n" .
+                    'Bitte beachte, dass du dich für den Zeitraum von Montag, 27. August (erste Mahlzeit Abendessen) bis Sonntag, 2. September (letzte Mahlzeit Mittagessen) angemeldet hast.' . "\r\n\r\n" .
+                    'Solltest du aufgrund persönlicher Gründe früher anreisen oder später abreisen kostet dies 10€ pro Nacht.' . "\r\n" .
+                    'Bitte melde deine zusätzlichen Nächte mit erster und letzter Mahlzeit per Mail an:' . "\r\n" .
+                    'Schoenstatt2015@gmx.de' . "\r\n\r\n";
 
     $mail_to = $_email;
     $mail_subject = 'Anmeldebestätigung: Nacht des Heiligtums 2018';
     $mail_message = 'Hallo ' . $_first_name . ',' . "\r\n\r\n" .
-                    'wir haben Deine Anmeldung zur Nacht des Heiligtums 2018 (31. August bis 02. September) erhalten und freuen uns darüber.' . "\r\n\r\n" .
+                    ($package_help_week ? $mail_intro_help_week : $mail_intro_default) .
                     'Deine Angaben:' . "\r\n" .
                     'Anmeldungstyp: ' . $_registration_type_nice . "\r\n" .
                     ($type_single ? '' : ('Gruppen-ID: ' . $_group_id . "\r\n")) .
