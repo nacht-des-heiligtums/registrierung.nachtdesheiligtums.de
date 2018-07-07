@@ -3,7 +3,7 @@
 
   error_reporting(0);
 
-  header('Access-Control-Allow-Origin: https://nachtdesheiligtums.de');
+  header('Access-Control-Allow-Origin:*');
   header('Content-Type: application/json');
 
   $_c_filename = "ndh-anmeldung-jpq5laf2m9uodr2h3tl1veghn7c6lm08.csv";
