@@ -4,7 +4,13 @@ Options -Indexes
 ServerSignature Off
 Header unset X-Powered-By
 
-RedirectMatch 404 ".*\.csv$"
+<FilesMatch ".*\.csv">
+  AuthType Basic
+  AuthName "NdH-Registrierung"
+  AuthUserFile ./.htpasswd
+  Require valid-user
+  # Header set Content-Disposition attachment
+</FilesMatch>
 
 ErrorDocument 403 "403 - Forbidden"
 ErrorDocument 404 "404 - Not Found"
