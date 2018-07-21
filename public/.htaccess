@@ -4,12 +4,11 @@ Options -Indexes
 ServerSignature Off
 Header unset X-Powered-By
 
-<FilesMatch ".*\.csv">
+<FilesMatch ".*\.csv$">
   AuthType Basic
   AuthName "NdH-Registrierung"
-  AuthUserFile ./.htpasswd
+  AuthUserFile /.htpasswd
   Require valid-user
-  # Header set Content-Disposition attachment
 </FilesMatch>
 
 ErrorDocument 403 "403 - Forbidden"
@@ -24,7 +23,7 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ registration.php [QSA,L]
+RewriteRule ^ /registration.php [QSA,L]
 
 RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
 RewriteCond %{SCRIPT_FILENAME} -d [OR]
