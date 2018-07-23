@@ -29,7 +29,7 @@
   $type_single = $_registration_type == 'single';
   $type_group_leader = $_registration_type == 'group-leader';
   $type_group_participant = $_registration_type == 'group-participant';
-  $package_help_week = $_package == 'help_week';
+  $package_help_week = $_package == 'help-week';
 
   $valid_registration_type = (boolean)isValidRequired($_registration_type);
   $valid_group_id = $type_single || (boolean)isValidRequired($_group_id);
