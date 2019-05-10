@@ -88,29 +88,69 @@
 
     $_registration_type_nice = $type_single ? 'Einzelanmeldung' : ($type_group_leader ? 'Gruppenverantwortlicher' : 'Gruppenteilnehmer');
     $_nutrition_habit_nice = $_nutrition_habit == 'vegetarian' ? 'Ja' : 'Nein';
-    $_room_type_nice = $_room_type == 'dorm'
-      ? 'Schlafsaal (Schlafack, Isomatte/Luftmatratze)'
-      : ($_room_type == 'double'
-        ? 'Bett im Doppelzimmer (zzgl. 10 Euro/Nacht + bitte Schlafsack mitbringen)'
-        : 'Einzelzimmer (zzgl. 20 Euro/Nacht + bitte Schlafsack mitbringen)');
-    $_package_nice = $_package == 'package-a'
-      ? 'Wochenende komplett (58 Euro)'
-      : ($_package == 'package-b'
-        ? 'Wochende Samstagnachmittag bis Sonntagmittag (35 Euro)'
-        : ($_package == 'package-c'
-          ? 'Wochenende ohne Übernachtung (45 Euro)'
-          : 'Teilnahme an der Helferwoche (103 Euro)'));
-    $_payment_method_nice = $_payment_method == 'cash' ? 'Bar (zzgl. 10 Euro)' : 'Überweisung';
-    
-    $mail_intro_default = 'wir haben Deine Anmeldung zur Nacht des Heiligtums 2018 (31. August bis 02. September) erhalten und freuen uns darüber.' . "\r\n\r\n";
-    $mail_intro_help_week = 'wir haben Deine Anmeldung zur Helferwoche der Nacht des Heiligtums 2018 erhalten.' . "\r\n" .
-                    'Bitte beachte, dass du dich für den Zeitraum von Montag, 27. August (erste Mahlzeit Abendessen) bis Sonntag, 2. September (letzte Mahlzeit Mittagessen) angemeldet hast.' . "\r\n\r\n" .
+
+    switch ($_room_type) {
+      case 'dorm':
+        $_room_type_nice = 'Schlafsaal (Schlafack, Isomatte/Luftmatratze)';
+        $room_type_cost = 0;
+        break;
+
+      case 'double':
+        $_room_type_nice = 'Bett im Doppelzimmer (+ 10,00 €/Nacht + bitte Schlafsack mitbringen)';
+        $room_type_cost = 1000;
+        break;
+
+      case 'single':
+        $_room_type_nice = 'Einzelzimmer (+ 20,00 €/Nacht + bitte Schlafsack mitbringen)';
+        $room_type_cost = 2000;
+        break;
+    }
+
+    switch ($_package) {
+      case 'package-a':
+        $_package_nice = 'Wochenende komplett';
+        $package_cost = 5800;
+        $num_nights = 2;
+        break;
+
+      case 'package-b':
+        $_package_nice = 'Wochende Samstagnachmittag bis Sonntagmittag';
+        $package_cost = 3500;
+        $num_nights = 1;
+        break;
+
+      case 'package-c':
+        $_package_nice = 'Wochenende ohne Übernachtung';
+        $package_cost = 4500;
+        $num_nights = 0;
+        break;
+
+      case 'help-week':
+        $_package_nice = 'Teilnahme an der Helferwoche';
+        $package_cost = 10300;
+        $num_nights = 0;
+        break;
+    }
+    $_package_nice = $_package_nice . ' (' . formatEuro($package_cost) . ')';
+
+    $_payment_method_nice = $_payment_method == 'cash' ? 'Bar (+ 3,00 €)' : 'Überweisung';
+    $payment_reason = $type_single ? $_first_name . ' ' . $_last_name . ' NdH 2019' : 'Gruppenname + Teilnehmername + NdH 2019';
+    $payment_total = $package_cost;
+    if ($_payment_method == 'cash') {
+      $payment_total += 300;
+    }
+    $payment_total += $num_nights * $room_type_cost;
+
+    $mail_intro_default = 'wir haben Deine Anmeldung zur Nacht des Heiligtums 2019 (30. August bis 01. September 2019) erhalten und freuen uns darüber.' . "\r\n" .
+      'Klasse, dass du dem Alltag einen Break gibst um gemeinsam mit uns aufzutanken und ein grandioses Wochenende zu erleben! ' . "\r\n\r\n";
+    $mail_intro_help_week = 'wir haben Deine Anmeldung zur Helferwoche der Nacht des Heiligtums 2019 erhalten. Klasse, dass du dem Alltag einen Break gibst um gemeinsam mit uns aufzutanken und ein grandioses Wochenende zu erleben! ' . "\r\n" .
+                    'Bitte beachte, dass du dich für den Zeitraum von Montag, 26. August (erste Mahlzeit Abendessen) bis Sonntag, 1. September (letzte Mahlzeit Mittagessen) angemeldet hast.' . "\r\n\r\n" .
                     'Solltest du aufgrund persönlicher Gründe früher anreisen oder später abreisen kostet dies 10€ pro Nacht.' . "\r\n" .
                     'Bitte melde deine zusätzlichen Nächte mit erster und letzter Mahlzeit per Mail an:' . "\r\n" .
                     'Schoenstatt2015@gmx.de' . "\r\n\r\n";
 
     $mail_to = $_email;
-    $mail_subject = 'Anmeldebestätigung: Nacht des Heiligtums 2018';
+    $mail_subject = 'Anmeldebestätigung: Nacht des Heiligtums 2019';
     $mail_message = 'Hallo ' . $_first_name . ',' . "\r\n\r\n" .
                     ($package_help_week ? $mail_intro_help_week : $mail_intro_default) .
                     'Deine Angaben:' . "\r\n" .
@@ -126,18 +166,19 @@
                     ($type_group_participant ? '' : ('Telefonnummer: ' . $_phone . "\r\n")) .
                     'Geburtsdatum: ' . $_date_of_birth . "\r\n" .
                     'Vegetarier: ' . $_nutrition_habit_nice . "\r\n" .
-                    'Übernachtung: ' . $_room_type_nice . "\r\n" .
                     'Paketwahl: ' . $_package_nice . "\r\n" .
+                    'Übernachtung: ' . $_room_type_nice . "\r\n" .
                     ($type_group_participant ? "\r\n" : ('Bezahlmethode: ' . $_payment_method_nice . "\r\n\r\n")) .
-                    'Du bist nun als Teilnehmer für die Nacht des Heiligtums 2018 registriert.' . "\r\n" .
+                    'Du bist nun als Teilnehmer für die Nacht des Heiligtums 2019 registriert.' . "\r\n\r\n" .
+                    'Dein Teilnehmerbeitrag beträgt ' . formatEuro($payment_total) . ".\r\n\r\n" .
                     'Wenn Du als Bezahlmethode die Überweisung gewählt hast, dann überweise den Teilnehmerbeitrag' . "\r\n" .
-                    'bitte spätestens bis zum 20. August 2018 auf folgendes Konto:' . "\r\n\r\n" .
+                    'bitte spätestens bis zum 20. August 2019 auf folgendes Konto:' . "\r\n\r\n" .
                     'Schönstattbewegung Deutschland e.V. - Nacht des Heiligtums' . "\r\n" .
                     'Kreditinstitut: Sparkasse Koblenz' . "\r\n" .
                     'IBAN: DE31 5705 0120 0000 1346 50' . "\r\n" .
                     'BIC: MALADE51KOB' . "\r\n" .
-                    'Verwendungszweck: Gruppenname + Teilnehmername + NdH 2018' . "\r\n\r\n" .
-                    'Noch nicht 18? Dann fülle bitte noch das Formular unter http://www.nachtdesheiligtums.de/anmeldung/anmeldeformular-pdf aus,' . "\r\n" .
+                    'Verwendungszweck: ' . $payment_reason . "\r\n\r\n" .
+                    'Noch nicht 18? Dann fülle bitte noch das Formular unter https://www.nachtdesheiligtums.de/anmeldung/anmeldeformular-pdf aus,' . "\r\n" .
                     'lass es von deinen Eltern unterschreiben und schicke es uns oder lege es uns spätestens beim Einchecken vor.' . "\r\n\r\n" .
                     'See you - wir sehen uns in Schönstatt!' . "\r\n\r\n" .
                     'Dein Kernteam';
@@ -238,5 +279,9 @@
     else {
       return fopen($_filename, "a");
     }
+  }
+
+  function formatEuro($cents) {
+    return number_format($cents / 100.0, 2, ',', '.') . ' €';
   }
 ?>
