@@ -12,7 +12,7 @@ PORT=8311
 php -S 127.0.0.1:$PORT -t public -d "sendmail_path=/usr/local/bin/mhsendmail" &
 
 for room_type in dorm double single; do
-  for package in package-a package-b package-c; do
+  for package in package-a package-b package-c help-week; do
     for payment_method in cash transfer; do
       curl http://127.0.0.1:$PORT/registration.php -s -H "Content-Type: application/x-www-form-urlencoded" \
         -d "registration-type=single&first-name=Eva&last-name=Plast" \

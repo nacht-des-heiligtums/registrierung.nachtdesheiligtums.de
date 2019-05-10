@@ -125,7 +125,7 @@
         $num_nights = 0;
         break;
 
-      case 'package-d':
+      case 'help-week':
         $_package_nice = 'Teilnahme an der Helferwoche';
         $package_cost = 10300;
         $num_nights = 0;
