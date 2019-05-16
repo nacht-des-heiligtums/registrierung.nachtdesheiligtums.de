@@ -81,7 +81,8 @@
       $_nutrition_habit,
       $_room_type,
       $_package,
-      $_payment_method
+      $_payment_method,
+      date('c')
     ));
 
     fclose($_file);
