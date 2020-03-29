@@ -138,23 +138,22 @@
     $_package_nice = $_package_nice . ' (' . formatEuro($package_cost) . ')';
 
     $_payment_method_nice = $_payment_method == 'cash' ? 'Bar (+ 3,00 €)' : 'Überweisung';
-    $payment_reason = $type_single ? $_first_name . ' ' . $_last_name . ' NdH 2019' : 'Gruppenname + Teilnehmername + NdH 2019';
+    $payment_reason = $type_single ? $_first_name . ' ' . $_last_name . ' NdH 2020' : 'Gruppenname + Teilnehmername + NdH 2020';
     $payment_total = $package_cost;
     if ($_payment_method == 'cash') {
       $payment_total += 300;
     }
     $payment_total += $num_nights * $room_type_cost;
 
-    $mail_intro_default = 'wir haben Deine Anmeldung zur Nacht des Heiligtums 2019 (30. August bis 01. September 2019) erhalten und freuen uns darüber.' . "\r\n" .
-      'Klasse, dass du dem Alltag einen Break gibst um gemeinsam mit uns aufzutanken und ein grandioses Wochenende zu erleben! ' . "\r\n\r\n";
-    $mail_intro_help_week = 'wir haben Deine Anmeldung zur Helferwoche der Nacht des Heiligtums 2019 erhalten. Klasse, dass du dem Alltag einen Break gibst um gemeinsam mit uns aufzutanken und ein grandioses Wochenende zu erleben! ' . "\r\n" .
-                    'Bitte beachte, dass du dich für den Zeitraum von Montag, 26. August (erste Mahlzeit Abendessen) bis Sonntag, 1. September (letzte Mahlzeit Mittagessen) angemeldet hast.' . "\r\n\r\n" .
+    $mail_intro_default = 'wir haben Deine Anmeldung zur Nacht des Heiligtums 2020 (4. bis 6. September 2020) erhalten und freuen uns darüber.' . "\r\n\r\n";
+    $mail_intro_help_week = 'wir haben Deine Anmeldung zur Helferwoche der Nacht des Heiligtums 2020 erhalten. Klasse, dass du dem Alltag einen Break gibst um gemeinsam mit uns aufzutanken und ein grandioses Wochenende zu erleben! ' . "\r\n" .
+                    'Bitte beachte, dass du dich für den Zeitraum von Montag, 31. August (erste Mahlzeit Abendessen) bis Sonntag, 6. September (letzte Mahlzeit Mittagessen) angemeldet hast.' . "\r\n\r\n" .
                     'Solltest du aufgrund persönlicher Gründe früher anreisen oder später abreisen kostet dies 10€ pro Nacht.' . "\r\n" .
                     'Bitte melde deine zusätzlichen Nächte mit erster und letzter Mahlzeit per Mail an:' . "\r\n" .
                     'Schoenstatt2015@gmx.de' . "\r\n\r\n";
 
     $mail_to = $_email;
-    $mail_subject = 'Anmeldebestätigung: Nacht des Heiligtums 2019';
+    $mail_subject = 'Anmeldebestätigung: Nacht des Heiligtums 2020';
     $mail_message = 'Hallo ' . $_first_name . ',' . "\r\n\r\n" .
                     ($package_help_week ? $mail_intro_help_week : $mail_intro_default) .
                     'Deine Angaben:' . "\r\n" .
@@ -173,10 +172,10 @@
                     'Paketwahl: ' . $_package_nice . "\r\n" .
                     'Übernachtung: ' . $_room_type_nice . "\r\n" .
                     ($type_group_participant ? "\r\n" : ('Bezahlmethode: ' . $_payment_method_nice . "\r\n\r\n")) .
-                    'Du bist nun als Teilnehmer für die Nacht des Heiligtums 2019 registriert.' . "\r\n\r\n" .
+                    'Du bist nun als Teilnehmer für die Nacht des Heiligtums 2020 registriert.' . "\r\n\r\n" .
                     'Dein Teilnehmerbeitrag beträgt ' . formatEuro($payment_total) . ".\r\n\r\n" .
                     'Wenn Du als Bezahlmethode die Überweisung gewählt hast, dann überweise den Teilnehmerbeitrag' . "\r\n" .
-                    'bitte spätestens bis zum 20. August 2019 auf folgendes Konto:' . "\r\n\r\n" .
+                    'bitte spätestens bis zum 25. August 2020 auf folgendes Konto:' . "\r\n\r\n" .
                     'Schönstattbewegung Deutschland e.V. - Nacht des Heiligtums' . "\r\n" .
                     'Kreditinstitut: Sparkasse Koblenz' . "\r\n" .
                     'IBAN: DE31 5705 0120 0000 1346 50' . "\r\n" .
