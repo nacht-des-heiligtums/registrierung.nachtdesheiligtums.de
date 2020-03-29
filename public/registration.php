@@ -24,6 +24,7 @@
   $_room_type = getPostInput('room-type');
   $_package = getPostInput('package');
   $_payment_method = getPostInput('payment-method');
+  $_accept_hausordnung = getPostInput('accept-hausordnung');
 
   // validate
   $type_single = $_registration_type == 'single';
@@ -46,6 +47,7 @@
   $valid_room_type = (boolean)isValidRequired($_room_type);
   $valid_package = (boolean)isValidRequired($_package);
   $valid_payment_method = (boolean)isValidRequired($_payment_method);
+  $valid_accept_hausordnung = $_accept_hausordnung == 'yes';
 
   $valid_overall = $valid_registration_type
     && $valid_group_id
@@ -61,7 +63,8 @@
     && $valid_nutrition_habit
     && $valid_room_type
     && $valid_package
-    && $valid_payment_method;
+    && $valid_payment_method
+    && $valid_accept_hausordnung;
 
   if ($valid_overall) {
     $_file = createOrOpenFile($_c_filename);
@@ -213,7 +216,8 @@
     'nutrition-habit' => $valid_nutrition_habit,
     'room-type' => $valid_room_type,
     'package' => $valid_package,
-    'payment-method' => $valid_payment_method
+    'payment-method' => $valid_payment_method,
+    'accept-hausordnung' => $valid_accept_hausordnung
   );
 
   echo json_encode($validation);

@@ -21,7 +21,8 @@ for room_type in dorm double single; do
         -d "nutrition-habit=default" \
         -d "room-type=$room_type" \
         -d "package=$package" \
-        -d "payment-method=$payment_method" | grep -v \"registration\":true
+        -d "payment-method=$payment_method" \
+        -d "accept-hausordnung=yes" | grep -v \"registration\":true
     done
   done
 done
