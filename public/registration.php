@@ -84,7 +84,8 @@
       $_nutrition_habit,
       $_room_type,
       $_package,
-      $_payment_method
+      $_payment_method,
+      date(DATE_RFC3339)
     ));
 
     fclose($_file);
