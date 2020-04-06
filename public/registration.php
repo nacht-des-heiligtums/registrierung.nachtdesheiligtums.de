@@ -276,8 +276,9 @@
         'nutrition-habit',
         'room-type',
         'package',
-        'payment-method'
-      ));
+	'payment-method',
+	'registration-date'
+      ), "\t");
       return $_file;
     }
     else {
