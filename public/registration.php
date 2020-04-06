@@ -72,21 +72,21 @@
     fputcsv($_file, array(
       $_registration_type,
       $_group_id,
-      $_first_name,
-      $_last_name,
-      $_street,
-      $_plz,
-      $_residence,
-      $_diocese,
-      $_email,
-      $_phone,
+      convert_encoding($_first_name),
+      convert_encoding($_last_name),
+      convert_encoding($_street),
+      convert_encoding($_plz),
+      convert_encoding($_residence),
+      convert_encoding($_diocese),
+      convert_encoding($_email),
+      convert_encoding($_phone),
       $_date_of_birth,
       $_nutrition_habit,
       $_room_type,
       $_package,
       $_payment_method,
       date(DATE_RFC3339)
-    ));
+    ), "\t");
 
     fclose($_file);
 
@@ -288,5 +288,15 @@
 
   function formatEuro($cents) {
     return number_format($cents / 100.0, 2, ',', '.') . ' €';
+  }
+
+  function convert_encoding($string) {
+    $charset = mb_detect_encoding($string,
+      "UTF-8, ISO-8859-1, ISO-8859-15",
+      true
+    );
+
+    $string =  mb_convert_encoding($string, "Windows-1252", $charset);
+    return $string;
   }
 ?>
